@@ -18,20 +18,25 @@ module Threadfix
 
         def perform!
           puts 'performing'
-          require 'pry'; binding.pry
-          RestClient.post("#{host}/rest/applications/#{app_id}/upload", file: File.new(file_path), headers: { "Accept"=>"application/json", "Authorization" => key })
+          begin
+            RestClient.post(
+              "#{host}/threadfix/rest/v2.4.5/applications/#{app_id}/upload",
+              file: File.new(file_path),
+              headers: { "Accept"=>"application/json", "Authorization" => "APIKEY #{apiKey}"}
+            )
+          rescue RestClient::ExceptionWithResponse => e
+            require 'pry'; binding.pry
+          end
         end
 
         private
 
         def host
-          # Client.config.host
-          'example.com'
+          Client.config.host
         end
 
-        def key
-          # Client.config.key
-          'asdfadfad'
+        def apiKey
+          Client.config.key
         end
       end
     end
