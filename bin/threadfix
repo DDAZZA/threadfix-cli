@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require "threadfix/cli"
+
+Threadfix::CLI.start
