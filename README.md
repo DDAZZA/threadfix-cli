@@ -3,16 +3,16 @@ Command line tool to upload a static analysis report to ThreadFix
 
 ## Installation
 
-Install it  with:
+Install with:
 
 ```ruby
- $ gem install threadfix
+ $ gem install threadfix-cli
 ```
 
 ## Usage
 
 ```ruby
- $ threadfix scan upload --app-id <APP-ID> --host <Server> --key <Auth Key> --file ./repo/results.json
+ $ threadfix scan upload --app-id <Application ID> --host <Host Name> --key <API Key> --file ./repo/results.json
 ```
 
 ## Development
