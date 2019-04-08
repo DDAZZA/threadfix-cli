@@ -1,9 +1,11 @@
 require 'rest-client'
+require 'json'
 
 module Threadfix
   module Client
     module Scans
       class Upload
+        API_VERSION='2.5'
         attr_accessor :file_path, :app_id
 
         def initialize(options={})
@@ -11,25 +13,27 @@ module Threadfix
           @app_id = options[:app_id]
         end
 
-        def validate
-          puts 'validating'
-          true
-        end
-
         def perform!
-          puts 'performing'
           begin
-            RestClient.post(
-              "#{host}/threadfix/rest/v2.4.5/applications/#{app_id}/upload",
-              file: File.new(file_path),
-              headers: { "Accept"=>"application/json", "Authorization" => "APIKEY #{apiKey}"}
+            r = RestClient.post(
+              "#{host}/rest/#{API_VERSION}/applications/#{app_id}/upload",
+              { file: file },
+              { :accept => "application/json", :Authorization => "APIKEY #{apiKey}" }
             )
+            JSON.parse(r.body)
+          rescue RestClient::NotFound => e
+            puts "Endpoint not found (using API version: #{API_VERSION})"
+            raise e
           rescue RestClient::ExceptionWithResponse => e
-            require 'pry'; binding.pry
+            raise e
           end
         end
 
         private
+
+        def file
+          File.new(file_path, 'rb')
+        end
 
         def host
           Client.config.host

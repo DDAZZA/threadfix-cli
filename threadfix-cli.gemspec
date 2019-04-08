@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "threadfix"
   spec.version       = Threadfix::Cli::VERSION
   spec.authors       = ["Dave Elliott"]
-  spec.email         = ["david.elliott@sage.com"]
+  spec.email         = ["ddazza@gmail.com"]
 
   spec.summary       = %q{CLI to upload scan report to ThreadFix}
   spec.description   = %q{Command line tool to upload a static analysis report to ThreadFix}

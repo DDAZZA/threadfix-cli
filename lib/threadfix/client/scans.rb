@@ -4,12 +4,12 @@ module Threadfix
   module Client
     module Scans
       class <<self
+
         # @param file_path
+        # @return Hash
         def upload(options={})
           action = Upload.new(options)
-          if action.validate
-            action.perform!
-          end
+          action.perform!
         end
       end
     end

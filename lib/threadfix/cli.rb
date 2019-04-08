@@ -1,5 +1,5 @@
 require 'thor'
-# require "threadfix/cli/version"
+require "threadfix/cli/version"
 require "threadfix/cli/scan"
 require "threadfix/client"
 
