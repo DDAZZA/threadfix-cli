@@ -1,5 +1,5 @@
 # Threadfix
-Command line tool to upload a static analysis report to ThreadFix
+Command line tool that wraps the ThreadFix API
 
 ## Installation
 
@@ -13,10 +13,17 @@ $ gem install threadfix-cli
 
 ```ruby
 $ export THREADFIX_TOKEN=<API key>
+
+$ threadfix applications lookup \
+    --app-name <Application Name> \
+    --team-name <Team Name> \
+#=> <Application ID>
+
 $ threadfix scan upload \
     --app-id <Application ID> \
     --host <Host Name> \
     --file ./repo/results.json
+#=> <Upload Status>
 ```
 
 ## Development

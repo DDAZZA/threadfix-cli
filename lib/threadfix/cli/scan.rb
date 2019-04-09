@@ -4,7 +4,7 @@ module Threadfix
     class Scan < Thor
       desc "upload", "Uploads a scan to ThreadFix"
       option :host
-      option 'app-id', required: true, type: :numeric
+      option :app_id, required: true, type: :numeric
       option :file, required: true, aliases: '-f', desc: "Report to upload"
       option :key, desc: "Authorisation key"
       def upload
@@ -14,7 +14,7 @@ module Threadfix
         end
 
         begin
-          response =  Client::Scans.upload(file_path: options[:file], app_id: options['app-id'] )
+          response =  Client::Scans.upload(file_path: options[:file], app_id: options[:app_id] )
           puts response['message']
         rescue Errno::ENOENT => e
           puts "Error: File or directory '#{options[:file]}' doesn't exist."

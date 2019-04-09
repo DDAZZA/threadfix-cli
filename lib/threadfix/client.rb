@@ -1,4 +1,5 @@
 require "threadfix/client/scans"
+require "threadfix/client/applications"
 
 module Threadfix
   module Client
@@ -15,7 +16,7 @@ module Threadfix
       attr_accessor :host, :key
 
       def initialize
-        @host = ENV['HOST']
+        @host = ENV['THREADFIX_HOST']
         @key = ENV['THREADFIX_TOKEN']
       end
     end

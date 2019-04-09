@@ -1,24 +1,20 @@
-require 'rest-client'
-require 'json'
-require 'uri'
-
 module Threadfix
   module Client
-    module Scans
-      class Upload
-        API_VERSION='2.5'
-        attr_reader :file_path, :app_id
+    module Applications
+      class Lookup
+        API_VERSION='2.5.0.2'
+
+        attr_reader :team_name, :app_name
 
         def initialize(options={})
-          @file_path = options[:file_path]
-          @app_id = options[:app_id]
+          @team_name = options[:team_name]
+          @app_name = options[:app_name]
         end
 
         def perform!
           begin
-            r = RestClient.post(
+            r = RestClient.get(
               endpoint.to_s,
-              { file: file },
               { :accept => "application/json", :Authorization => "APIKEY #{apiKey}" }
             )
             JSON.parse(r.body)
@@ -33,11 +29,7 @@ module Threadfix
         private
 
         def endpoint
-          URI("#{host}/rest/#{API_VERSION}/applications/#{app_id}/upload")
-        end
-
-        def file
-          File.new(file_path, 'rb')
+          URI("#{host}/rest/#{API_VERSION}/applications/#{team_name}/lookup?name=#{app_name}")
         end
 
         def host
@@ -48,6 +40,7 @@ module Threadfix
           Client.config.key
         end
       end
+
     end
   end
 end
