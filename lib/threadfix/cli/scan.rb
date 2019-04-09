@@ -15,7 +15,10 @@ module Threadfix
 
         begin
           response =  Client::Scans.upload(file_path: options[:file], app_id: options[:app_id] )
-          puts response['message']
+          message = response['message']
+          message = message + " (ID: #{response['object']['id']})" if response['object'] && response['object']['id']
+
+          puts message
         rescue Errno::ENOENT => e
           puts "Error: File or directory '#{options[:file]}' doesn't exist."
           exit 1

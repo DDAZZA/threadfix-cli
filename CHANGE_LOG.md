@@ -7,3 +7,7 @@
 - Changed $HOST to $THREADFIX_HOST
 - Added $ threadfix version
 - Added $ threadfix applications lookup
+
+# v0.2.1
+
+- Print ID in upload commadn
