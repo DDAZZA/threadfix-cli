@@ -15,7 +15,7 @@ RUN bundle install
 # Install to /$WORKDIR/pkg/*.gem
 RUN bundle exec rake install
 
-FROM ruby:buster
+FROM ruby:3.1.0-buster
 COPY --from=builder /workspace/pkg/*.gem ./threadfix-cli.gem
 RUN gem install threadfix-cli.gem
 WORKDIR /workspace

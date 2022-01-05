@@ -10,4 +10,8 @@
 
 # v0.2.1
 
-- Print ID in upload commadn
+- Print ID in upload command
+
+# v0.3.0
+
+- Added feature to fetch ID for a given app name
