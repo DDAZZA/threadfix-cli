@@ -6,7 +6,7 @@ module Threadfix
   module Client
     module Scans
       class Upload
-        API_VERSION='2.5'
+        API_VERSION='v2.5'
         attr_reader :file_path, :app_id
 
         def initialize(options={})
@@ -16,6 +16,7 @@ module Threadfix
 
         def perform!
           begin
+            puts "POST #{endpoint.to_s}" if ENV['DEBUG']
             r = RestClient.post(
               endpoint.to_s,
               { file: file },
@@ -26,6 +27,7 @@ module Threadfix
             puts "Endpoint not found (using API version: #{API_VERSION})"
             raise e
           rescue RestClient::ExceptionWithResponse => e
+            puts e.message
             raise e
           end
         end

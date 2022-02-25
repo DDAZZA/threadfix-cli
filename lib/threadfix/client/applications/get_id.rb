@@ -3,7 +3,7 @@ module Threadfix
     module Applications
       class GetId
         # https://denimgroup.atlassian.net/wiki/spaces/TDOC/pages/664567813/List+Applications+-+API
-        API_VERSION='2.7.5'
+        API_VERSION='v2.7.5'
 
         attr_reader :app_name
 
@@ -13,6 +13,7 @@ module Threadfix
 
         def perform!
           begin
+            puts "GET #{endpoint.to_s}" if ENV['DEBUG']
             r = RestClient.get(
               endpoint.to_s,
               { :accept => "application/json", :Authorization => "APIKEY #{apiKey}" }
@@ -21,15 +22,17 @@ module Threadfix
 
             begin
               body.fetch('object')
-                .find{ |a| a.fetch('name') == app_name}.fetch('id')
+                .find{ |a| a.fetch('name').downcase == app_name.downcase}.fetch('id')
             rescue => e
               puts "App '#{app_name}' was not found."
               nil # return nil if data not found
             end
           rescue RestClient::NotFound => e
             puts "Endpoint not found (using API version: #{API_VERSION})"
+            puts e.message if ENG['DEBUG']
             raise e
           rescue RestClient::ExceptionWithResponse => e
+            puts e.message if ENG['DEBUG']
             raise e
           end
         end

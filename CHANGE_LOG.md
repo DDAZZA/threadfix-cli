@@ -15,3 +15,11 @@
 # v0.3.0
 
 - Added feature to fetch ID for a given app name
+
+# v0.3.1
+
+- Fetch ID ignores app name case
+- Added Debug logging with DEBUG env var
+Updates to support breaking API change
+- Updated API version
+- USAGE CHANGE: for compatibility with the newer API the THREADFIX_HOST must also include '/threadfix' e.g.  'http://example.com/threadfix'

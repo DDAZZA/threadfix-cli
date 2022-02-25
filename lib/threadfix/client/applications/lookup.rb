@@ -2,7 +2,7 @@ module Threadfix
   module Client
     module Applications
       class Lookup
-        API_VERSION='2.5.0.2'
+        API_VERSION='v2.5.0.2'
 
         attr_reader :team_name, :app_name
 
@@ -13,6 +13,7 @@ module Threadfix
 
         def perform!
           begin
+            puts "GET #{endpoint.to_s}" if ENV['DEBUG']
             r = RestClient.get(
               endpoint.to_s,
               { :accept => "application/json", :Authorization => "APIKEY #{apiKey}" }
